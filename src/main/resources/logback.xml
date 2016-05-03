@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true"> <!-- debug="true" -->
+
+	<property name="LOG_HOME" value="log" />
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd 'T' HH:mm:ss} | %-5level | %logger - %m%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="SYSTEM"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/webclient_system.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/webclient_system.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>60</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd 'T' HH:mm:ss} | %-5level | %logger{0} - %m%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<appender name="BUSINESS"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/webclient_business.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/webclient_business.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>60</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd 'T' HH:mm:ss} | %-5level | %logger{0} - %m%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<logger level="DEBUG" name="business" additivity="false">
+		<appender-ref ref="BUSINESS" />
+	</logger>
+
+	<logger level="DEBUG" name="com.kewill" />
+	<logger level="WARN" name="org.apache.camel" />
+	<logger level="WARN" name="org.apache.activemq" />
+
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="SYSTEM" />
+	</root>
+</configuration>
+

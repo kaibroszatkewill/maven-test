@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://www.kewill.com/customs/kcxCustomsMessageWrapper/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.kewill.com/customs/kcxCustomsMessageWrapper/v1" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xsd:element name="kcxCustomsMessageWrapper">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="kcxMetadata" />
+				<xsd:element ref="customsMetadata" />
+				<xsd:element ref="customsMessage" />
+				<xsd:element name="attachments" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="attachment" minOccurs="0" maxOccurs="unbounded" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="kcxMetadata">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="messageId" type="xsd:string" />
+				<xsd:element name="correlationId" type="xsd:string" minOccurs="0" />
+				<xsd:element name="customerId" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="customsMetadata">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="messageId" type="xsd:string" minOccurs="0" />
+				<xsd:element name="correlationId" type="xsd:string" minOccurs="0" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="customsMessage">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="procedure" type="xsd:string" />
+				<xsd:element name="messageName" type="xsd:string" />
+				<xsd:element name="messageVersion" type="xsd:string" minOccurs="0" />
+				<xsd:element name="action" type="xsd:string" minOccurs="0" />
+				<xsd:choice>
+					<xsd:element name="xmlMessage">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:any namespace="##any" processContents="lax" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="textMessage" type="xsd:string" />
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="attachment">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="type" type="xsd:string" />
+				<xsd:element name="name" type="xsd:string" />
+				<xsd:element name="base64" type="xsd:base64Binary" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
